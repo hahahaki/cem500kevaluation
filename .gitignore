@@ -1,0 +1,8 @@
+mlruns/
+cem500k_mocov2_resnet50_200ep.pth.tar
+segresult/
+finetunesave/
+__pycache__/
+Snakefile
+snakefile_dq
+snakefile_wq
