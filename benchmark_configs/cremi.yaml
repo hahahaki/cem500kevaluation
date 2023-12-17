@@ -1,0 +1,108 @@
+#dataset parameters
+experiment_name: "cremi"
+num_classes: 1
+class_names: 
+  - "synaptic_cleft"
+
+#set the directories for data and models
+data_dir: "/home/codee/scratch/sourcecode/cem-dataset/benchdata/cremi/2d/"
+model_dir: "models/"
+
+#whether to log the run in MLFlow
+#either True or False
+logging: True
+
+#number of model checkpoints to save during training
+#if zero, the model's state is never saved
+num_save_checkpoints: 1
+
+#if a .pth file is given, model training will resume
+#from that checkpoint
+resume: ""
+
+#hyperparameters
+bsz: 16
+jobs: 8
+#choice of none, layer4, layer3, layer2, layer 1, or all
+finetune_layer: "none"
+#choice of True or False
+unfreeze_encoder_bn: False
+#currently, only resnet50 is supported
+encoder: "resnet50"
+
+#set the encoder pretraining choice of:
+#random_init, imagenet_supervised, imagenet_mocov2, cellemnet_mocov2 
+#or a path to a custom .pth file with a state_dict
+pretraining: "cellemnet_mocov2"
+
+lr: 0.003
+wd: 0.1
+#choice of AdamW or SGD
+optim: "AdamW"
+#choice of OneCycle, MultiStep, or Poly
+lr_policy: "OneCycle"
+
+#parameter only for SGD optim; AdamW uses default momentum values
+momentum: 0.9
+
+#iterations are used for Poly and OneCycle,
+#epochs are used for MultiStep
+iters: 5000
+
+#parameters specific for Poly lr_policy
+power: 0.9
+
+#parameters specific to MultiStep lr_policy
+epochs: 10
+lr_decay_epochs:
+  - 6
+  - 8
+
+#set pixel norm values
+norms:
+    mean: 0.50387249
+    std: 0.10911144
+  
+#currently only IoU is supported
+metrics:
+  - "IoU"
+  
+#number of times to print/record metrics for 
+#train and validation data over the entire
+#training run
+num_prints: 10
+
+#list the augmentations to use during training
+augmentations:
+  - aug: "PadIfNeeded"
+    min_height: 512
+    min_width: 512
+  - aug: "CropNonEmptyMaskIfExists"
+    height: 512
+    width: 512
+    p: 0.8
+  - aug: "RandomResizedCrop"
+    height: 512
+    width: 512
+    scale:
+      - 0.08
+      - 1.0
+    ratio:
+      - 0.5
+      - 1.5
+  - aug: "Rotate"
+    limit: 180
+  - aug: "RandomBrightnessContrast"
+    brightness_limit: 0.3
+    contrast_limit: 0.3
+  - aug: "HorizontalFlip"
+  - aug: "VerticalFlip"
+  
+###INFERENCE SECTION 3D###
+test_dir3d: "/home/codee/scratch/sourcecode/cem-dataset/benchdata/cremi/3d/test/"
+mode3d: "stack"
+threshold3d: 0.5
+eval_classes3d:
+  - 1
+mask_prediction3d: False
+save_dir3d: null
