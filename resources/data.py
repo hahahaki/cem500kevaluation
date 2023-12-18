@@ -2,6 +2,8 @@ import cv2, os
 from torch.utils.data import Dataset
 from albumentations import ImageOnlyTransform
 from albumentations.augmentations import functional as AF
+from albumentations import Resize
+
 
 class SegmentationData(Dataset):
     """
@@ -118,4 +120,8 @@ class FactorResize(ImageOnlyTransform):
         nh = int(h / self.rf) * self.rf
         nw = int(w / self.rf) * self.rf
         interpolation = cv2.INTER_LINEAR #cv2.INTER_NEAREST
-        return AF.resize(img, nh, nw, interpolation)
+        resize_transform = Resize(nh, nw, interpolation=interpolation)
+
+        # Apply the transform
+        transformed = resize_transform(image=img)
+        return transformed['image']

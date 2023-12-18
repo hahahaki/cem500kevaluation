@@ -79,10 +79,12 @@ if __name__ == "__main__":
     experiment = config['experiment_name']
     print("model_direct:", config['model_dir'])
 
+    # pretraining now is /home/codee/scratch/sourcecode/cem-dataset/evaluation/cem500k_mocov2_resnet50_200ep.pth.tar
     pretraining = config['pretraining']    
     #if we're working with MoCo pretrained weights
     #then we'll have to download them separately from the 
     #built-in pytorch function
+    #pretraining = 'random_init' # for random init
     if pretraining in ['imagenet_mocov2', 'cellemnet_mocov2']:
         #this loads the state dict and adds the prefix "encoder."
         #to the keys such that they match those in the UNet model

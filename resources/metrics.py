@@ -123,6 +123,7 @@ class ComposeMetrics:
         
     def evaluate(self, output, target):
         #calculate all the metrics in the dict
+        # calculate IoU, each metric is iou(EMAmeter()) instance
         for metric in self.metrics_dict.values():
             value = metric.calculate(output, target)
             metric.update(value)

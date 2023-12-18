@@ -110,6 +110,7 @@ class Trainer:
         #weight to the most recent metric values calculated during training
         #this gives a better reflection of how well the model is performing
         #when the metrics are printed
+        # metrcs_dict = {'iou': IoU(EMAMeter())}
         trn_md = {name: metric_lookup[name](EMAMeter()) for name in config['metrics']}
         self.trn_metrics = ComposeMetrics(trn_md, class_names)
         self.trn_loss_meter = EMAMeter()
@@ -243,6 +244,7 @@ class Trainer:
         
         #perform training over the outer and inner loops
         for epoch in outer_loop:
+            print("epochnum:", epoch)
             for iteration in inner_loop:
                 #load the next batch of training data
                 images, masks = self.trn_data.load()
@@ -260,6 +262,8 @@ class Trainer:
             if epoch % eval_epochs == 0:
                 #before printing results let's record everything in mlflow
                 #(if we're using logging)
+                #cheng added
+                self.logging = False
                 if self.logging:
                     self.log_metrics(epoch, dataset='train')
                 
@@ -269,7 +273,7 @@ class Trainer:
                 #prints and automatically resets the metric averages to 0
                 self.trn_metrics.print()
                 
-                self.val_data = None
+                #self.val_data = None
                 #run evaluation if we have validation data
                 if self.val_data is not None:
                     #before evaluation we want to turn off cudnn
