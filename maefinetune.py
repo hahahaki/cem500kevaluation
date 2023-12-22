@@ -85,9 +85,9 @@ if __name__ == "__main__":
     model = UNETR(
         in_channels=1,
         out_channels=1,
-        img_size=(96, 96),
+        img_size=(224, 224),
         feature_size=64,
-        hidden_size=768,
+        hidden_size=192,
         mlp_dim=3072,
         num_heads=12,
         pos_embed='perceptron',
@@ -95,8 +95,32 @@ if __name__ == "__main__":
         conv_block=True,
         res_block=True,
         dropout_rate=0.0)
-
+    gray_channels = 1
     '''
+    # to load the pretraining into the UNETR
+    pretraining = '/home/codee/scratch/servercheckpoint/pretrain500k12_18.pt'
+    
+    #for key, value in checkpoint.items():
+    #    print(key, value.shape)
+
+    state_dict = torch.load(pretraining, map_location='cpu')
+    #state_dict = moco_to_unet_prefixes(state_dict)
+    gray_channels = 1
+    #normalize = Normalize(mean=norms[0], std=norms[1])
+    for k in list(state_dict.keys()):
+        # retain only encoder_q up to before the embedding layer
+        state_dict['vit.' + k] = state_dict[k]
+
+        # delete renamed or unused k
+        del state_dict[k]
+        
+    for key, value in state_dict.items():
+        print(key, value.shape)
+    #create the Unet model and load the pretrained weights
+    msg = model.load_state_dict(state_dict, strict=False)
+    print(f'Successfully loaded parameters from {pretraining}')
+    
+    
     #freeze all encoder layers to start and only open
     #them when specified
     for param in model.encoder.parameters():
@@ -224,7 +248,6 @@ if __name__ == "__main__":
     #that most users will have access to a GPU though.
     train = DataLoader(trn_data, batch_size=bsz, shuffle=True, pin_memory=True, drop_last=True, num_workers=config['jobs'])
     
-    '''
     #check for a validation directory and use it if it exists
     #if not, then we don't use any validation data
     val_dir = 'valid/'
@@ -252,7 +275,6 @@ if __name__ == "__main__":
     else:
         valid = None
     
-    '''
     #create model path ahead of time so that
     #we don't try to save to a directory that doesn't
     #exist later on

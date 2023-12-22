@@ -36,24 +36,9 @@ class DataFetcher:
             
         #get the images and masks as cuda float tensors
         #images = batch['image'].float().cuda(non_blocking=True)
-        images = batch['image'].float()
-        #print("fetchimage:", images.shape)
         #masks = batch['mask'].cuda(non_blocking=True)
-        masks = batch['mask']
-        #print(masks.shape)
-        # I add here to keep the dimension to be [96,96]
-        center_x, center_y = 256, 256
-
-        # Calculate start and end points for cropping
-        start_x, start_y = center_x - 48, center_y - 48
-        end_x, end_y = center_x + 48, center_y + 48
-
-        # Crop the images and masks
-        images = images[:, :, start_y:end_y, start_x:end_x]
-        masks = masks[:, start_y:end_y, start_x:end_x]
-        # iadd a dimension to the second
-        # to be [16, 1, , 96, 96]
-        masks = masks.unsqueeze(1)
+        images = batch['image'].float()
+        masks = batch['mask'].unsqueeze(1)
         return images, masks
         
 class Trainer:
@@ -266,7 +251,7 @@ class Trainer:
             for iteration in inner_loop:
                 #load the next batch of training data
                 images, masks = self.trn_data.load()
-                #print("show", images.shape)
+                print("show", images.shape)
                 #run the training iteration
                 loss, output = self._train_1_iteration(images, masks, dice_loss)
                 # cheng hid all the trn_metrics operation (IoU) calculate
@@ -328,13 +313,14 @@ class Trainer:
         self.model.train()
         self.optimizer.zero_grad()
         print("inputimg:", images.shape)
-        
+        '''
+        images = images.cpu()
         plt.imshow(images[0][0])
         plt.title("Sample Torch Image")
         plt.show()
         file_path = '/home/codee/scratch/sourcecode/cem-dataset/evaluation/segresult/input.png'
         plt.imsave(file_path, images[0][0])
-
+        '''
         #print("maskshape:", masks.shape)
         #plt.imshow(masks[0])
         #plt.show()
@@ -343,6 +329,8 @@ class Trainer:
         
         #forward pass
         output = self.model(images)
+
+        '''
         #print("outputshape:", output.shape)
         x_detached = output.detach()  # Detach the tensor from the computation graph
         x_numpy = x_detached.numpy()
@@ -351,6 +339,7 @@ class Trainer:
         #print("patchembed:", x.shape)  
         plt.savefig("/home/codee/scratch/sourcecode/cem-dataset/evaluation/segresult/output.png")
         plt.close()
+        '''
 
         #loss = self.criterion(output, masks)
         loss = loss_func(output, masks)

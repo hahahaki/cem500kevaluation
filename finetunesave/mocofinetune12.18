@@ -1,0 +1,948 @@
+model_direct: /home/codee/scratch/sourcecode/cem-dataset/evaluation/savemodel
+Successfully loaded parameters from /home/codee/scratch/sourcecode/cem-dataset/evaluation/cem500k_mocov2_resnet50_200ep.pth.tar
+Using model with 32515703 trainable parameters!
+Found 49 images in /home/codee/scratch/sourcecode/cem-dataset/benchdata/guay/2d/train/images
+Found 23 images in /home/codee/scratch/sourcecode/cem-dataset/benchdata/guay/2d/valid/images
+
+  1%|          | 1/100 [00:00<?, ?it/s]epochnum: 1
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 2.056300163269043
+
+  2%|▏         | 2/100 [02:31<4:06:54, 151.17s/it]epochnum: 2
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.9239778518676758
+
+  3%|▎         | 3/100 [04:46<3:49:11, 141.77s/it]epochnum: 3
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.9698675870895386
+
+  4%|▍         | 4/100 [07:03<3:43:06, 139.44s/it]epochnum: 4
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.8488965034484863
+
+  5%|▌         | 5/100 [09:20<3:39:31, 138.65s/it]epochnum: 5
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.8123153448104858
+
+
+train_loss: 1.920
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.165
+cell_IoU: 0.130
+mito_IoU: 0.008
+can_chan_IoU: 0.056
+alpha_gran_IoU: 0.029
+dense_gran_IoU: 0.003
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.645
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.300
+cell_IoU: 0.142
+mito_IoU: 0.019
+can_chan_IoU: 0.023
+alpha_gran_IoU: 0.021
+dense_gran_IoU: 0.002
+dense_gran_core_IoU: 0.000
+
+  6%|▌         | 6/100 [13:19<4:34:03, 174.93s/it]epochnum: 6
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.7573027610778809
+
+  7%|▋         | 7/100 [15:36<4:11:01, 161.95s/it]epochnum: 7
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.7380592823028564
+
+  8%|▊         | 8/100 [17:57<3:57:42, 155.03s/it]epochnum: 8
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.5637425184249878
+
+  9%|▉         | 9/100 [20:13<3:45:58, 149.00s/it]epochnum: 9
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.591020941734314
+
+ 10%|█         | 10/100 [22:31<3:38:22, 145.58s/it]epochnum: 10
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.5862572193145752
+
+
+train_loss: 1.645
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.250
+cell_IoU: 0.175
+mito_IoU: 0.009
+can_chan_IoU: 0.070
+alpha_gran_IoU: 0.029
+dense_gran_IoU: 0.003
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.355
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.637
+cell_IoU: 0.144
+mito_IoU: 0.024
+can_chan_IoU: 0.046
+alpha_gran_IoU: 0.027
+dense_gran_IoU: 0.002
+dense_gran_core_IoU: 0.000
+
+ 11%|█         | 11/100 [26:36<4:21:36, 176.37s/it]epochnum: 11
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.4851704835891724
+
+ 12%|█▏        | 12/100 [28:54<4:01:10, 164.44s/it]epochnum: 12
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.365107774734497
+
+ 13%|█▎        | 13/100 [31:12<3:46:54, 156.48s/it]epochnum: 13
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.5417457818984985
+
+ 14%|█▍        | 14/100 [33:35<3:38:31, 152.46s/it]epochnum: 14
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.527290940284729
+
+ 15%|█▌        | 15/100 [35:44<3:25:56, 145.37s/it]epochnum: 15
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.5011550188064575
+
+
+train_loss: 1.485
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.323
+cell_IoU: 0.233
+mito_IoU: 0.009
+can_chan_IoU: 0.077
+alpha_gran_IoU: 0.031
+dense_gran_IoU: 0.004
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.210
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.755
+cell_IoU: 0.227
+mito_IoU: 0.025
+can_chan_IoU: 0.049
+alpha_gran_IoU: 0.034
+dense_gran_IoU: 0.003
+dense_gran_core_IoU: 0.000
+
+ 16%|█▌        | 16/100 [39:47<4:04:31, 174.66s/it]epochnum: 16
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.523402214050293
+
+ 17%|█▋        | 17/100 [42:22<3:53:32, 168.83s/it]epochnum: 17
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.273707628250122
+
+ 18%|█▊        | 18/100 [44:33<3:35:20, 157.57s/it]epochnum: 18
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.3576745986938477
+
+ 19%|█▉        | 19/100 [46:45<3:22:24, 149.93s/it]epochnum: 19
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.2941182851791382
+
+ 20%|██        | 20/100 [49:00<3:13:36, 145.21s/it]epochnum: 20
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0843068361282349
+
+
+train_loss: 1.303
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.373
+cell_IoU: 0.271
+mito_IoU: 0.010
+can_chan_IoU: 0.093
+alpha_gran_IoU: 0.040
+dense_gran_IoU: 0.004
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.127
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.795
+cell_IoU: 0.296
+mito_IoU: 0.029
+can_chan_IoU: 0.070
+alpha_gran_IoU: 0.040
+dense_gran_IoU: 0.003
+dense_gran_core_IoU: 0.000
+
+ 21%|██        | 21/100 [52:56<3:47:06, 172.49s/it]epochnum: 21
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.2431930303573608
+
+ 22%|██▏       | 22/100 [55:14<3:30:58, 162.29s/it]epochnum: 22
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.136838674545288
+
+ 23%|██▎       | 23/100 [57:31<3:18:20, 154.56s/it]epochnum: 23
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.105830430984497
+
+ 24%|██▍       | 24/100 [59:48<3:09:08, 149.32s/it]epochnum: 24
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9975659251213074
+
+ 25%|██▌       | 25/100 [1:02:06<3:02:32, 146.04s/it]epochnum: 25
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.1048262119293213
+
+
+train_loss: 1.116
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.508
+cell_IoU: 0.347
+mito_IoU: 0.010
+can_chan_IoU: 0.106
+alpha_gran_IoU: 0.046
+dense_gran_IoU: 0.007
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 10.033
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.577
+cell_IoU: 0.177
+mito_IoU: 0.008
+can_chan_IoU: 0.018
+alpha_gran_IoU: 0.022
+dense_gran_IoU: 0.004
+dense_gran_core_IoU: 0.000
+
+ 26%|██▌       | 26/100 [1:06:19<3:39:40, 178.11s/it]epochnum: 26
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.079679250717163
+
+ 27%|██▋       | 27/100 [1:08:36<3:21:28, 165.59s/it]epochnum: 27
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0414304733276367
+
+ 28%|██▊       | 28/100 [1:11:38<3:24:51, 170.71s/it]epochnum: 28
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0931448936462402
+
+ 29%|██▉       | 29/100 [1:14:11<3:15:42, 165.38s/it]epochnum: 29
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9610281586647034
+
+ 30%|███       | 30/100 [1:16:27<3:02:36, 156.53s/it]epochnum: 30
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0077509880065918
+
+
+train_loss: 1.036
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.532
+cell_IoU: 0.390
+mito_IoU: 0.018
+can_chan_IoU: 0.124
+alpha_gran_IoU: 0.044
+dense_gran_IoU: 0.006
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 13.922
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.477
+cell_IoU: 0.079
+mito_IoU: 0.002
+can_chan_IoU: 0.013
+alpha_gran_IoU: 0.025
+dense_gran_IoU: 0.003
+dense_gran_core_IoU: 0.000
+
+ 31%|███       | 31/100 [1:20:32<3:30:34, 183.11s/it]epochnum: 31
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.104685664176941
+
+ 32%|███▏      | 32/100 [1:22:53<3:13:07, 170.40s/it]epochnum: 32
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.183219075202942
+
+ 33%|███▎      | 33/100 [1:25:09<2:58:47, 160.11s/it]epochnum: 33
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.1498594284057617
+
+ 34%|███▍      | 34/100 [1:27:26<2:48:36, 153.27s/it]epochnum: 34
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0782623291015625
+
+ 35%|███▌      | 35/100 [1:29:46<2:41:46, 149.32s/it]epochnum: 35
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9730509519577026
+
+
+train_loss: 1.096
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.487
+cell_IoU: 0.400
+mito_IoU: 0.019
+can_chan_IoU: 0.098
+alpha_gran_IoU: 0.047
+dense_gran_IoU: 0.007
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 3.237
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.552
+cell_IoU: 0.205
+mito_IoU: 0.020
+can_chan_IoU: 0.084
+alpha_gran_IoU: 0.028
+dense_gran_IoU: 0.004
+dense_gran_core_IoU: 0.000
+
+ 36%|███▌      | 36/100 [1:33:42<3:06:44, 175.08s/it]epochnum: 36
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.1209434270858765
+
+ 37%|███▋      | 37/100 [1:35:47<2:48:06, 160.10s/it]epochnum: 37
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8807587027549744
+
+ 38%|███▊      | 38/100 [1:38:05<2:38:32, 153.43s/it]epochnum: 38
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9311442375183105
+
+ 39%|███▉      | 39/100 [1:40:23<2:31:18, 148.83s/it]epochnum: 39
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9530554413795471
+
+ 40%|████      | 40/100 [1:42:40<2:25:17, 145.30s/it]epochnum: 40
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9781922101974487
+
+
+train_loss: 0.972
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.539
+cell_IoU: 0.406
+mito_IoU: 0.017
+can_chan_IoU: 0.124
+alpha_gran_IoU: 0.056
+dense_gran_IoU: 0.009
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.247
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.720
+cell_IoU: 0.242
+mito_IoU: 0.042
+can_chan_IoU: 0.096
+alpha_gran_IoU: 0.043
+dense_gran_IoU: 0.005
+dense_gran_core_IoU: 0.000
+
+ 41%|████      | 41/100 [1:46:43<2:51:52, 174.79s/it]epochnum: 41
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0801509618759155
+
+ 42%|████▏     | 42/100 [1:48:58<2:37:13, 162.65s/it]epochnum: 42
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0242809057235718
+
+ 43%|████▎     | 43/100 [1:51:10<2:25:57, 153.65s/it]epochnum: 43
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9274312257766724
+
+ 44%|████▍     | 44/100 [1:53:29<2:19:05, 149.03s/it]epochnum: 44
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0778015851974487
+
+ 45%|████▌     | 45/100 [1:55:40<2:11:43, 143.69s/it]epochnum: 45
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.073194980621338
+
+
+train_loss: 1.037
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.527
+cell_IoU: 0.424
+mito_IoU: 0.018
+can_chan_IoU: 0.111
+alpha_gran_IoU: 0.061
+dense_gran_IoU: 0.010
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 0.992
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.788
+cell_IoU: 0.351
+mito_IoU: 0.043
+can_chan_IoU: 0.097
+alpha_gran_IoU: 0.059
+dense_gran_IoU: 0.005
+dense_gran_core_IoU: 0.001
+
+ 46%|████▌     | 46/100 [1:59:39<2:35:02, 172.26s/it]epochnum: 46
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.1609610319137573
+
+ 47%|████▋     | 47/100 [2:01:54<2:22:13, 161.02s/it]epochnum: 47
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9148570895195007
+
+ 48%|████▊     | 48/100 [2:04:06<2:12:07, 152.45s/it]epochnum: 48
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8802779316902161
+
+ 49%|████▉     | 49/100 [2:06:19<2:04:35, 146.58s/it]epochnum: 49
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8950936794281006
+
+ 50%|█████     | 50/100 [2:08:34<1:59:13, 143.06s/it]epochnum: 50
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0706530809402466
+
+
+train_loss: 0.984
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.515
+cell_IoU: 0.401
+mito_IoU: 0.015
+can_chan_IoU: 0.129
+alpha_gran_IoU: 0.068
+dense_gran_IoU: 0.009
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.217
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.471
+cell_IoU: 0.299
+mito_IoU: 0.041
+can_chan_IoU: 0.105
+alpha_gran_IoU: 0.052
+dense_gran_IoU: 0.004
+dense_gran_core_IoU: 0.000
+
+ 51%|█████     | 51/100 [2:12:33<2:20:16, 171.77s/it]epochnum: 51
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.059178352355957
+
+ 52%|█████▏    | 52/100 [2:14:44<2:07:45, 159.70s/it]epochnum: 52
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.842617928981781
+
+ 53%|█████▎    | 53/100 [2:17:05<2:00:36, 153.98s/it]epochnum: 53
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8524815440177917
+
+ 54%|█████▍    | 54/100 [2:19:16<1:52:50, 147.18s/it]epochnum: 54
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9059955477714539
+
+ 55%|█████▌    | 55/100 [2:21:29<1:47:16, 143.04s/it]epochnum: 55
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0670942068099976
+
+
+train_loss: 0.946
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.559
+cell_IoU: 0.429
+mito_IoU: 0.021
+can_chan_IoU: 0.139
+alpha_gran_IoU: 0.074
+dense_gran_IoU: 0.007
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.054
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.710
+cell_IoU: 0.372
+mito_IoU: 0.054
+can_chan_IoU: 0.075
+alpha_gran_IoU: 0.077
+dense_gran_IoU: 0.005
+dense_gran_core_IoU: 0.001
+
+ 56%|█████▌    | 56/100 [2:25:35<2:07:34, 173.96s/it]epochnum: 56
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9084581136703491
+
+ 57%|█████▋    | 57/100 [2:27:47<1:55:35, 161.29s/it]epochnum: 57
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9286643862724304
+
+ 58%|█████▊    | 58/100 [2:29:58<1:46:35, 152.28s/it]epochnum: 58
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8873432874679565
+
+ 59%|█████▉    | 59/100 [2:32:14<1:40:40, 147.32s/it]epochnum: 59
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0260668992996216
+
+ 60%|██████    | 60/100 [2:34:27<1:35:23, 143.09s/it]epochnum: 60
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.09688138961792
+
+
+train_loss: 0.971
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.567
+cell_IoU: 0.455
+mito_IoU: 0.024
+can_chan_IoU: 0.123
+alpha_gran_IoU: 0.088
+dense_gran_IoU: 0.009
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 1.696
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.107
+cell_IoU: 0.234
+mito_IoU: 0.030
+can_chan_IoU: 0.054
+alpha_gran_IoU: 0.091
+dense_gran_IoU: 0.005
+dense_gran_core_IoU: 0.001
+
+ 61%|██████    | 61/100 [2:38:16<1:49:45, 168.85s/it]epochnum: 61
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7709349393844604
+
+ 62%|██████▏   | 62/100 [2:40:33<1:40:44, 159.06s/it]epochnum: 62
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.020315170288086
+
+ 63%|██████▎   | 63/100 [2:42:49<1:33:51, 152.20s/it]epochnum: 63
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9524734020233154
+
+ 64%|██████▍   | 64/100 [2:45:06<1:28:34, 147.63s/it]epochnum: 64
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8287146091461182
+
+ 65%|██████▌   | 65/100 [2:47:28<1:25:11, 146.04s/it]epochnum: 65
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9213854074478149
+
+
+train_loss: 0.899
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.596
+cell_IoU: 0.456
+mito_IoU: 0.022
+can_chan_IoU: 0.150
+alpha_gran_IoU: 0.094
+dense_gran_IoU: 0.010
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 1.111
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.608
+cell_IoU: 0.273
+mito_IoU: 0.048
+can_chan_IoU: 0.082
+alpha_gran_IoU: 0.100
+dense_gran_IoU: 0.006
+dense_gran_core_IoU: 0.001
+
+ 66%|██████▌   | 66/100 [2:51:30<1:39:01, 174.76s/it]epochnum: 66
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.0313122272491455
+
+ 67%|██████▋   | 67/100 [2:53:47<1:29:58, 163.58s/it]epochnum: 67
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.816737174987793
+
+ 68%|██████▊   | 68/100 [2:56:08<1:23:29, 156.55s/it]epochnum: 68
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7650376558303833
+
+ 69%|██████▉   | 69/100 [2:58:17<1:16:43, 148.50s/it]epochnum: 69
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7162343263626099
+
+ 70%|███████   | 70/100 [3:00:35<1:12:34, 145.16s/it]epochnum: 70
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8307879567146301
+
+
+train_loss: 0.830
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.629
+cell_IoU: 0.470
+mito_IoU: 0.026
+can_chan_IoU: 0.174
+alpha_gran_IoU: 0.095
+dense_gran_IoU: 0.010
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 1.014
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.622
+cell_IoU: 0.341
+mito_IoU: 0.035
+can_chan_IoU: 0.090
+alpha_gran_IoU: 0.100
+dense_gran_IoU: 0.005
+dense_gran_core_IoU: 0.001
+
+ 71%|███████   | 71/100 [3:04:52<1:26:28, 178.93s/it]epochnum: 71
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8706849813461304
+
+ 72%|███████▏  | 72/100 [3:07:06<1:17:09, 165.34s/it]epochnum: 72
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8566225171089172
+
+ 73%|███████▎  | 73/100 [3:09:18<1:09:51, 155.24s/it]epochnum: 73
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7921345233917236
+
+ 74%|███████▍  | 74/100 [3:11:34<1:04:50, 149.62s/it]epochnum: 74
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7783094644546509
+
+ 75%|███████▌  | 75/100 [3:13:45<1:00:00, 144.00s/it]epochnum: 75
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8315030932426453
+
+
+train_loss: 0.825
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.657
+cell_IoU: 0.483
+mito_IoU: 0.030
+can_chan_IoU: 0.167
+alpha_gran_IoU: 0.091
+dense_gran_IoU: 0.009
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 1.035
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.541
+cell_IoU: 0.324
+mito_IoU: 0.046
+can_chan_IoU: 0.083
+alpha_gran_IoU: 0.087
+dense_gran_IoU: 0.005
+dense_gran_core_IoU: 0.001
+
+ 76%|███████▌  | 76/100 [3:17:40<1:08:28, 171.21s/it]epochnum: 76
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7390097975730896
+
+ 77%|███████▋  | 77/100 [3:19:58<1:01:50, 161.31s/it]epochnum: 77
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8170784711837769
+
+ 78%|███████▊  | 78/100 [3:22:09<55:51, 152.32s/it]  epochnum: 78
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7953929901123047
+
+ 79%|███████▉  | 79/100 [3:24:24<51:25, 146.93s/it]epochnum: 79
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8099581003189087
+
+ 80%|████████  | 80/100 [3:26:39<47:49, 143.49s/it]epochnum: 80
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7302228212356567
+
+
+train_loss: 0.778
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.669
+cell_IoU: 0.494
+mito_IoU: 0.032
+can_chan_IoU: 0.175
+alpha_gran_IoU: 0.092
+dense_gran_IoU: 0.008
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 0.727
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.809
+cell_IoU: 0.502
+mito_IoU: 0.086
+can_chan_IoU: 0.138
+alpha_gran_IoU: 0.101
+dense_gran_IoU: 0.006
+dense_gran_core_IoU: 0.001
+
+ 81%|████████  | 81/100 [3:30:36<54:16, 171.39s/it]epochnum: 81
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8242958188056946
+
+ 82%|████████▏ | 82/100 [3:32:48<47:51, 159.54s/it]epochnum: 82
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8250073194503784
+
+ 83%|████████▎ | 83/100 [3:35:00<42:53, 151.37s/it]epochnum: 83
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8075979948043823
+
+ 84%|████████▍ | 84/100 [3:37:12<38:50, 145.64s/it]epochnum: 84
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7916304469108582
+
+ 85%|████████▌ | 85/100 [3:39:25<35:28, 141.93s/it]epochnum: 85
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.6700796484947205
+
+
+train_loss: 0.782
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.702
+cell_IoU: 0.513
+mito_IoU: 0.039
+can_chan_IoU: 0.168
+alpha_gran_IoU: 0.098
+dense_gran_IoU: 0.009
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 0.707
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.812
+cell_IoU: 0.520
+mito_IoU: 0.105
+can_chan_IoU: 0.154
+alpha_gran_IoU: 0.101
+dense_gran_IoU: 0.007
+dense_gran_core_IoU: 0.001
+
+ 86%|████████▌ | 86/100 [3:43:24<39:51, 170.85s/it]epochnum: 86
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7938650250434875
+
+ 87%|████████▋ | 87/100 [3:45:36<34:31, 159.32s/it]epochnum: 87
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8140606880187988
+
+ 88%|████████▊ | 88/100 [3:47:48<30:12, 151.02s/it]epochnum: 88
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.6887689232826233
+
+ 89%|████████▉ | 89/100 [3:50:04<26:50, 146.45s/it]epochnum: 89
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.8709841370582581
+
+ 90%|█████████ | 90/100 [3:52:14<23:37, 141.75s/it]epochnum: 90
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7245212197303772
+
+
+train_loss: 0.778
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.703
+cell_IoU: 0.518
+mito_IoU: 0.039
+can_chan_IoU: 0.195
+alpha_gran_IoU: 0.102
+dense_gran_IoU: 0.011
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 0.698
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.818
+cell_IoU: 0.528
+mito_IoU: 0.099
+can_chan_IoU: 0.151
+alpha_gran_IoU: 0.101
+dense_gran_IoU: 0.008
+dense_gran_core_IoU: 0.001
+
+ 91%|█████████ | 91/100 [3:56:11<25:33, 170.34s/it]epochnum: 91
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.6916387677192688
+
+ 92%|█████████▏| 92/100 [3:58:29<21:23, 160.45s/it]epochnum: 92
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7557876110076904
+
+ 93%|█████████▎| 93/100 [4:00:40<17:41, 151.65s/it]epochnum: 93
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7917212247848511
+
+ 94%|█████████▍| 94/100 [4:02:51<14:33, 145.58s/it]epochnum: 94
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7822597026824951
+
+ 95%|█████████▌| 95/100 [4:05:06<11:51, 142.30s/it]epochnum: 95
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.6578683257102966
+
+
+train_loss: 0.736
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.703
+cell_IoU: 0.517
+mito_IoU: 0.039
+can_chan_IoU: 0.193
+alpha_gran_IoU: 0.103
+dense_gran_IoU: 0.010
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 0.669
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.834
+cell_IoU: 0.548
+mito_IoU: 0.098
+can_chan_IoU: 0.152
+alpha_gran_IoU: 0.105
+dense_gran_IoU: 0.008
+dense_gran_core_IoU: 0.001
+
+ 96%|█████████▌| 96/100 [4:09:01<11:20, 170.08s/it]epochnum: 96
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7140323519706726
+
+ 97%|█████████▋| 97/100 [4:11:12<07:54, 158.25s/it]epochnum: 97
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.7857606410980225
+
+ 98%|█████████▊| 98/100 [4:13:27<05:02, 151.37s/it]epochnum: 98
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.6711637377738953
+
+ 99%|█████████▉| 99/100 [4:15:38<02:25, 145.22s/it]epochnum: 99
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.6720134615898132
+
+100%|██████████| 100/100 [4:17:49<00:00, 141.11s/it]epochnum: 100
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 0.9560433030128479
+
+
+train_loss: 0.761
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbfd1ba50>)])
+back_IoU: 0.698
+cell_IoU: 0.517
+mito_IoU: 0.037
+can_chan_IoU: 0.184
+alpha_gran_IoU: 0.101
+dense_gran_IoU: 0.011
+dense_gran_core_IoU: 0.002
+
+
+valid_loss: 0.678
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2afdbf710a10>)])
+back_IoU: 0.841
+cell_IoU: 0.555
+mito_IoU: 0.094
+can_chan_IoU: 0.143
+alpha_gran_IoU: 0.108
+dense_gran_IoU: 0.007
+dense_gran_core_IoU: 0.001
+
+101it [4:21:48, 170.32s/it]                         
+101it [4:21:48, 157.08s/it]

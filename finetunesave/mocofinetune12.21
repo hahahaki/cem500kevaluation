@@ -1,0 +1,22 @@
+model_direct: /home/codee/scratch/sourcecode/cem-dataset/evaluation/savemodel
+load the pretrain state with cellemnet_mocov2
+Using model with 32515703 trainable parameters!
+Found 49 images in /home/codee/scratch/sourcecode/cem-dataset/benchdata/guay/2d/train/images
+Found 23 images in /home/codee/scratch/sourcecode/cem-dataset/benchdata/guay/2d/valid/images
+  1%|          | 1/100 [00:00<?, ?it/s]epochnum: 1
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 2.1688404083251953
+  2%|▏         | 2/100 [00:14<23:21, 14.30s/it]epochnum: 2
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.9770457744598389
+  3%|▎         | 3/100 [00:25<20:35, 12.74s/it]epochnum: 3
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.8730252981185913
+  4%|▍         | 4/100 [00:39<21:15, 13.29s/it]epochnum: 4
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.699381947517395
+  5%|▌         | 5/100 [00:54<21:34, 13.63s/it]

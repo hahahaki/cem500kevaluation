@@ -1,0 +1,52 @@
+model_direct: /home/codee/scratch/sourcecode/cem-dataset/evaluation/savemodel
+load the pretrain state with cellemnet_mocov2
+Using model with 32515703 trainable parameters!
+Found 49 images in /home/codee/scratch/sourcecode/cem-dataset/benchdata/guay/2d/train/images
+Found 23 images in /home/codee/scratch/sourcecode/cem-dataset/benchdata/guay/2d/valid/images
+  1%|          | 1/100 [00:00<?, ?it/s]epochnum: 1
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 2.1688404083251953
+  2%|▏         | 2/100 [00:20<32:45, 20.05s/it]epochnum: 2
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.9770457744598389
+  3%|▎         | 3/100 [00:37<29:41, 18.36s/it]epochnum: 3
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.8730252981185913
+  4%|▍         | 4/100 [00:53<27:57, 17.48s/it]epochnum: 4
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.699381947517395
+  5%|▌         | 5/100 [01:11<28:07, 17.76s/it]epochnum: 5
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.5178730487823486
+
+
+train_loss: 1.841
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2b8b50f27990>)])
+back_IoU: 0.177
+cell_IoU: 0.125
+mito_IoU: 0.007
+can_chan_IoU: 0.079
+alpha_gran_IoU: 0.032
+dense_gran_IoU: 0.003
+dense_gran_core_IoU: 0.001
+
+
+valid_loss: 1.782
+items: dict_items([('IoU', <resources.metrics.IoU object at 0x2b8b5158e810>)])
+back_IoU: 0.182
+cell_IoU: 0.127
+mito_IoU: 0.015
+can_chan_IoU: 0.030
+alpha_gran_IoU: 0.022
+dense_gran_IoU: 0.001
+dense_gran_core_IoU: 0.000
+  6%|▌         | 6/100 [01:41<34:23, 21.95s/it]epochnum: 6
+torch.Size([16, 1, 512, 512])
+outputshape: torch.Size([16, 7, 512, 512])
+loss: 1.4275522232055664
+  7%|▋         | 7/100 [01:56<30:41, 19.81s/it]epochnum: 7

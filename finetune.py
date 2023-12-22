@@ -85,6 +85,7 @@ if __name__ == "__main__":
     #then we'll have to download them separately from the 
     #built-in pytorch function
     #pretraining = 'random_init' # for random init
+    pretraining = 'cellemnet_mocov2' # for mocov2 pretrain
     if pretraining in ['imagenet_mocov2', 'cellemnet_mocov2']:
         #this loads the state dict and adds the prefix "encoder."
         #to the keys such that they match those in the UNet model
@@ -99,7 +100,9 @@ if __name__ == "__main__":
         
         #create the Unet model and load the pretrained weights
         model = smp.Unet(config['encoder'], in_channels=gray_channels, encoder_weights=None, classes=config['num_classes'])
+
         msg = model.load_state_dict(state_dict, strict=False)
+        print("load the pretrain state with cellemnet_mocov2")
     elif pretraining == 'imagenet_supervised':
         #create the UNet with imagenet supervised weights which are
         #automatically downloaded through smp

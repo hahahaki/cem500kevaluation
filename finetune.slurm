@@ -25,7 +25,7 @@ mkdir -p `pwd`/$log_dir
 echo "$SLURM_NODEID Launching python script"
 #echo "$SLURM_NTASKS tasks running"
 
-/home/codee/miniconda3/bin/python /home/codee/scratch/sourcecode/cem-dataset/evaluation/finetune.py > $log_dir/mocofinetune12.18
+/home/codee/miniconda3/bin/python /home/codee/scratch/sourcecode/cem-dataset/evaluation/finetune.py > $log_dir/mocofinetune12.22_2
 
 #python /home/codee/scratch/sourcecode/cem-dataset/evaluation/setup_benchmarks/setup_data.py "/home/codee/scratch/sourcecode/cem-dataset/benchdata"
 

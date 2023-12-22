@@ -15,10 +15,10 @@ def moco_to_unet_prefixes(state_dict):
     # rename moco pre-trained keys
     for k in list(state_dict.keys()):
         # retain only encoder_q up to before the embedding layer
-        if k.startswith('module.encoder_q') and not k.startswith('module.encoder_q.fc'):
+        #if k.startswith('module.encoder_q') and not k.startswith('module.encoder_q.fc'):
             #for unet, we need to remove module.encoder_q. from the prefix
             #and add encoder instead
-            state_dict['encoder.' + k[len("module.encoder_q."):]] = state_dict[k]
+        state_dict['encoder.' + k] = state_dict[k]
 
         # delete renamed or unused k
         del state_dict[k]
@@ -64,6 +64,8 @@ def load_pretrained_state_for_unet(model_name='resnet50', pretraining='cellemnet
         url = cellemnet_moco_model_urls[model_name]
         model_state = torch.hub.load_state_dict_from_url(url)
         state_dict = model_state['state_dict']
+        #for key, value in state_dict.items():
+            #print(key, value.shape)
         state_dict = moco_to_unet_prefixes(state_dict)
         
     elif pretraining == 'cellemnet_pixpro':

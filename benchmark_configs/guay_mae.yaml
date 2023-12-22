@@ -94,11 +94,11 @@ num_prints: 10
 #list the augmentations to use during training
 augmentations:
   - aug: "PadIfNeeded"
-    min_height: 512
-    min_width: 512
+    min_height: 224
+    min_width: 224
   - aug: "RandomResizedCrop"
-    height: 512
-    width: 512
+    height: 224
+    width: 224
     scale:
       - 0.08
       - 1.0

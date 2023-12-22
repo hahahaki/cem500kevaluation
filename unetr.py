@@ -110,10 +110,10 @@ class UNETR(nn.Module):
             spatial_dims=2,
             in_channels=hidden_size,
             out_channels=feature_size * 2,
-            num_layer=2,
+            num_layer=2, # this is different for the encoder3, 4; means upsample three times
             kernel_size=3,
             stride=1,
-            upsample_kernel_size=2,
+            upsample_kernel_size=2, # up means output image is bigger in the spatial
             norm_name=norm_name,
             conv_block=conv_block,
             res_block=res_block,
@@ -216,12 +216,16 @@ class UNETR(nn.Module):
     def forward(self, x_in):
         # this step do all 12 blocks
         x, hidden_states_out = self.vit(x_in)
-        #print("hidden_state:", len(hidden_states_out))
+        print("hidden_state:", len(hidden_states_out))
         enc1 = self.encoder1(x_in)
+        print("enc1dim:", enc1.shape)
         # x2 is z3 in the paper figure
+        # the x2 dim (patch size will affect the enc2 shape), patch size needs to be 16*16
         x2 = hidden_states_out[3]
-        enc2 = self.encoder2(self.proj_feat(x2, self.hidden_size, self.feat_size))
-        #print("enc2dim:", enc2.shape)
+        print("x2:", x2.shape)
+        enc2 = self.encoder2(self.proj_feat(x2, self.hidden_size, self.feat_size)) # hidden_size = embed_dim, feats_size = 64
+        print("proj_shape:", self.proj_feat(x2, self.hidden_size, self.feat_size).shape)
+        print("enc2dim:", enc2.shape)
         x3 = hidden_states_out[6]
         enc3 = self.encoder3(self.proj_feat(x3, self.hidden_size, self.feat_size))
         print("encoder3:", enc3.shape)
