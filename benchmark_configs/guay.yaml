@@ -32,7 +32,7 @@ logging: True
 
 #number of model checkpoints to save during training
 #if zero, the model's state is never saved
-num_save_checkpoints: 20
+num_save_checkpoints: 10
 
 #if a .pth file is given, model training will resume
 #from that checkpoint
@@ -66,7 +66,7 @@ momentum: 0.9
 
 #iterations are used for Poly and OneCycle,
 #epochs are used for MultiStep
-iters: 1000
+iters: 5000
 
 #parameters specific for Poly lr_policy
 power: 0.9
@@ -89,7 +89,7 @@ metrics:
 #number of times to print/record metrics for 
 #train and validation data over the entire
 #training run
-num_prints: 20
+num_prints: 100
 
 #list the augmentations to use during training
 augmentations:

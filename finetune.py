@@ -1,7 +1,6 @@
-import os, sys, argparse, mlflow, yaml
+import os, argparse, yaml
 import numpy as np
 import torch
-import torch.nn as nn
 import segmentation_models_pytorch as smp
 from torch.utils.data import DataLoader
 
@@ -32,12 +31,12 @@ def parse_args():
     #the next arguments should already be defined in the config file
     #however, it's sometimes desirable to override them, especially
     #when using Snakemake to run the scripts
-    parser.add_argument('-md', type=str, dest='md', metavar='model_dir', default='/home/codee/scratch/sourcecode/cem-dataset/evaluation/savemodel',
+    parser.add_argument('-md', type=str, dest='md', metavar='model_dir', default='/home/codee/scratch/sourcecode/cem-dataset/evaluation/savepretrainedmodel',
                         help='Directory in which to save models')
     parser.add_argument('-pf', type=str, dest='pf', metavar='pretraining_file', default='/home/codee/scratch/sourcecode/cem-dataset/evaluation/cem500k_mocov2_resnet50_200ep.pth.tar',
                         help='Path to a pretrained state_dict')
-    parser.add_argument('-n', type=int, dest='n', metavar='iters', default=100,
-                        help='Number of training iterations')
+    #parser.add_argument('-n', type=int, dest='n', metavar='iters', default=100,
+    #                    help='Number of training iterations')
     ft_layer_choices = ['all', 'layer4', 'layer3', 'layer2', 'layer1', 'none']
     parser.add_argument('-ft', type=str, dest='ft', metavar='finetune_layer', choices=ft_layer_choices, default='all',
                         help='ResNet encoder layers to finetune')
@@ -71,8 +70,8 @@ if __name__ == "__main__":
         config['model_dir'] = args['md']
     if args['pf'] is not None:
         config['pretraining'] = args['pf']
-    if args['n'] is not None:
-        config['iters'] = args['n']
+    #if args['n'] is not None:
+    #    config['iters'] = args['n']
     if args['ft'] is not None:
         config['finetune_layer'] = args['ft']
 

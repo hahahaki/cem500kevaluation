@@ -1,5 +1,4 @@
-import sys, os, yaml
-import mlflow
+import sys, os
 import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
@@ -34,11 +33,11 @@ class DataFetcher:
             batch = next(self.loader_iter)
             
         #get the images and masks as cuda float tensors
-        #images = batch['image'].float().cuda(non_blocking=True)
-        images = batch['image'].float()
+        images = batch['image'].float().cuda(non_blocking=True)
+        #images = batch['image'].float()
 
-        #masks = batch['mask'].cuda(non_blocking=True)
-        masks = batch['mask']
+        masks = batch['mask'].cuda(non_blocking=True)
+        #masks = batch['mask']
         return images, masks
         
 class Trainer:
@@ -62,8 +61,8 @@ class Trainer:
     
     def __init__(self, config, model, trn_data, val_data=None):
         self.config = config
-        #self.model = model.cuda()
-        self.model = model
+        self.model = model.cuda()
+        #self.model = model
         self.trn_data = DataFetcher(trn_data)
         self.val_data = val_data
         
@@ -93,13 +92,13 @@ class Trainer:
         if config['num_classes'] > 1:
             #load class weights if they were given in the config file
             if 'class_weights' in config:
-                #weight = torch.Tensor(config['class_weights']).float().cuda()
-                weight = torch.Tensor(config['class_weights']).float()   
+                weight = torch.Tensor(config['class_weights']).float().cuda()
+                #weight = torch.Tensor(config['class_weights']).float()   
             else:
                 weight = None
             
-            #self.criterion = nn.CrossEntropyLoss(weight=weight).cuda()
-            self.criterion = nn.CrossEntropyLoss(weight=weight)
+            self.criterion = nn.CrossEntropyLoss(weight=weight).cuda()
+            #self.criterion = nn.CrossEntropyLoss(weight=weight)
         else:
             self.criterion = nn.BCEWithLogitsLoss().cuda()
         
@@ -130,6 +129,7 @@ class Trainer:
         #the mlflow run (if there is one and we're using logging)
         if config['resume']:
             self.resume(config['resume'])
+        '''
         elif self.logging:
             #if we're not resuming, but are logging, then we
             #need to setup mlflow with a new experiment
@@ -160,6 +160,7 @@ class Trainer:
             mlflow.log_param('encoder', config['encoder'])
             mlflow.log_param('finetune_layer', config['finetune_layer'])
             mlflow.log_param('pretraining', config['pretraining'])
+            '''
                 
     def resume(self, checkpoint_fpath):
         """
@@ -173,8 +174,8 @@ class Trainer:
             self.scheduler.load_state_dict(checkpoint['scheduler'])
             self.optimizer.load_state_dict(checkpoint['optimizer'])
         
-        if self.logging and 'run_id' in checkpoint:
-            mlflow.start_run(run_id=checkpoint['run_id'])
+        #if self.logging and 'run_id' in checkpoint:
+        #    mlflow.start_run(run_id=checkpoint['run_id'])
         
         print(f'Loaded state from {checkpoint_fpath}')
         print(f'Resuming from epoch {self.scheduler.last_epoch}...')
@@ -190,7 +191,7 @@ class Trainer:
             metric_dict = self.val_metrics.metrics_dict
             
         #log the last loss, using the dataset name as a prefix
-        mlflow.log_metric(dataset + '_loss', losses.avg, step=step)
+        #mlflow.log_metric(dataset + '_loss', losses.avg, step=step)
         
         #log all the metrics in our dict, using dataset as a prefix
         metrics = {}
@@ -199,7 +200,7 @@ class Trainer:
             for class_name, val in zip(self.trn_metrics.class_names, values):
                 metrics[dataset + '_' + class_name + '_' + k] = float(val.item())
                 
-        mlflow.log_metrics(metrics, step=step)
+        #mlflow.log_metrics(metrics, step=step)
     
     def train(self):
         """
@@ -241,7 +242,7 @@ class Trainer:
         #when the model input size is constant. See: 
         #https://discuss.pytorch.org/t/what-does-torch-backends-cudnn-benchmark-do/5936
         cudnn.benchmark = True
-        
+        #print("outloop")
         #perform training over the outer and inner loops
         for epoch in outer_loop:
             print("epochnum:", epoch)
@@ -251,7 +252,8 @@ class Trainer:
                 
                 #run the training iteration
                 loss, output = self._train_1_iteration(images, masks)
-                
+                #print("output:", output.shape)
+                #print("maskshape:", masks.shape)
                 #record the loss and evaluate metrics
                 self.trn_loss_meter.update(loss)
                 self.trn_metrics.evaluate(output, masks)
@@ -307,13 +309,14 @@ class Trainer:
         #run a training step
         self.model.train()
         self.optimizer.zero_grad()
+        '''
         print(images.shape)
         plt.imshow(images[0][0])
         plt.title("Sample Torch Image")
         plt.show()
         file_path = '/home/codee/scratch/sourcecode/cem-dataset/evaluation/segresult/input.png'
         plt.imsave(file_path, images[0][0])
-
+        '''
         #print("maskshape:", masks.shape)
         #plt.imshow(masks[0])
         #plt.show()
@@ -322,6 +325,7 @@ class Trainer:
 
         #forward pass
         output = self.model(images)
+        '''
         print("outputshape:", output.shape)
         x_detached = output.detach()  # Detach the tensor from the computation graph
         x_numpy = x_detached.numpy()
@@ -330,6 +334,7 @@ class Trainer:
         #print("patchembed:", x.shape)  
         plt.savefig("/home/codee/scratch/sourcecode/cem-dataset/evaluation/segresult/output.png")
         plt.close()
+        '''
 
         loss = self.criterion(output, masks)
         #backward pass
@@ -356,7 +361,10 @@ class Trainer:
             with torch.no_grad():
                 #load batch of data
                 images, masks = val_iter.load()
+                #print(images.shape): [1, 1, 800, 800]
+                #print(masks.shape): [1, 800,800]
                 output = self.model.eval()(images)
+                #print("outputdim:", output.shape)
                 loss = self.criterion(output, masks)
                 self.val_loss_meter.update(loss.item())
                 self.val_metrics.evaluate(output.detach(), masks)
@@ -386,8 +394,8 @@ class Trainer:
                  'optimizer': self.optimizer.state_dict(), 
                  'norms': self.config['training_norms']}
         
-        if self.logging:
-            state['run_id'] = mlflow.active_run().info.run_id
+        #if self.logging:
+        #    state['run_id'] = mlflow.active_run().info.run_id
             
         #the last step is to create the name of the file to save
         #the format is: name-of-experiment_pretraining_epoch.pth

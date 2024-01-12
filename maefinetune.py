@@ -39,8 +39,6 @@ def parse_args():
                         help='Directory in which to save models')
     parser.add_argument('-pf', type=str, dest='pf', metavar='pretraining_file', default='/home/codee/scratch/sourcecode/cem-dataset/evaluation/cem500k_mocov2_resnet50_200ep.pth.tar',
                         help='Path to a pretrained state_dict')
-    parser.add_argument('-n', type=int, dest='n', metavar='iters', default=100,
-                        help='Number of training iterations')
     ft_layer_choices = ['all', 'layer4', 'layer3', 'layer2', 'layer1', 'none']
     parser.add_argument('-ft', type=str, dest='ft', metavar='finetune_layer', choices=ft_layer_choices, default='all',
                         help='ResNet encoder layers to finetune')
@@ -74,8 +72,8 @@ if __name__ == "__main__":
         config['model_dir'] = args['md']
     if args['pf'] is not None:
         config['pretraining'] = args['pf']
-    if args['n'] is not None:
-        config['iters'] = args['n']
+    #if args['n'] is not None:
+        #config['iters'] = args['n']
     if args['ft'] is not None:
         config['finetune_layer'] = args['ft']
 
@@ -84,7 +82,7 @@ if __name__ == "__main__":
 
     model = UNETR(
         in_channels=1,
-        out_channels=1,
+        out_channels=config["num_classes"],
         img_size=(224, 224),
         feature_size=64,
         hidden_size=192,
@@ -252,6 +250,7 @@ if __name__ == "__main__":
     #if not, then we don't use any validation data
     val_dir = 'valid/'
     if os.path.isdir(os.path.join(data_dir, val_dir)):
+        '''
         #eval_augs are always the same.
         #since we ultimately want to run our model on
         #full size images and not cropped patches, we use
@@ -261,11 +260,14 @@ if __name__ == "__main__":
         #if working with very large images that don't fit in memory
         #it could be swapped out for a CenterCrop. the results will
         #be less reflective of performance in the test case however.
+        '''
         eval_augs = Compose([
+            # cheng change the factorresize to keep the size same as the training input
             FactorResize(32),
             normalize,
             ToTensorV2()
         ])
+        
             
         val_data = SegmentationData(os.path.join(data_dir, val_dir), tfs=eval_augs, gray_channels=gray_channels, 
                                     segmentation_classes=config['num_classes'])
@@ -284,5 +286,5 @@ if __name__ == "__main__":
     
     #train the model using the parameters in the config file
     #TODO: add a progress bar option to config
-    trainer = Trainer(config, model, train)
+    trainer = Trainer(config, model, train, valid)
     trainer.train()

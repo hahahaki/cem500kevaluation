@@ -183,7 +183,7 @@ class MAESTER_MODEL(nn.Module):
 
     def forward_encoder(self, x):
         # embed patches
-        print("before:,", x.shape)
+        #print("before:,", x.shape)
         '''
         x_detached = x.detach()  # Detach the tensor from the computation graph
         x_numpy = x_detached.numpy()

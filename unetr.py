@@ -216,33 +216,33 @@ class UNETR(nn.Module):
     def forward(self, x_in):
         # this step do all 12 blocks
         x, hidden_states_out = self.vit(x_in)
-        print("hidden_state:", len(hidden_states_out))
+        #print("hidden_state:", len(hidden_states_out))
         enc1 = self.encoder1(x_in)
-        print("enc1dim:", enc1.shape)
+        #print("enc1dim:", enc1.shape)
         # x2 is z3 in the paper figure
         # the x2 dim (patch size will affect the enc2 shape), patch size needs to be 16*16
         x2 = hidden_states_out[3]
-        print("x2:", x2.shape)
+        #print("x2:", x2.shape)
         enc2 = self.encoder2(self.proj_feat(x2, self.hidden_size, self.feat_size)) # hidden_size = embed_dim, feats_size = 64
-        print("proj_shape:", self.proj_feat(x2, self.hidden_size, self.feat_size).shape)
-        print("enc2dim:", enc2.shape)
+        #print("proj_shape:", self.proj_feat(x2, self.hidden_size, self.feat_size).shape)
+        #print("enc2dim:", enc2.shape)
         x3 = hidden_states_out[6]
         enc3 = self.encoder3(self.proj_feat(x3, self.hidden_size, self.feat_size))
-        print("encoder3:", enc3.shape)
+        #print("encoder3:", enc3.shape)
         x4 = hidden_states_out[9]
         enc4 = self.encoder4(self.proj_feat(x4, self.hidden_size, self.feat_size))
-        print("encoder4:", enc4.shape)
+        #print("encoder4:", enc4.shape)
         dec4 = self.proj_feat(x, self.hidden_size, self.feat_size)
-        print("dec4:", dec4.shape)
+        #print("dec4:", dec4.shape)
         # dec4 is before last line blue c node, enc4 is z9 after blue box, dec3 is combine in sec last blue node
         dec3 = self.decoder5(dec4, enc4)
-        print("dec3:", dec3.shape)
+        #print("dec3:", dec3.shape)
         dec2 = self.decoder4(dec3, enc3)
-        print("dec2:", dec2.shape)
+        #print("dec2:", dec2.shape)
         dec1 = self.decoder3(dec2, enc2)
-        print("dec1shape:", dec1.shape)
-        print("enc1shape:", enc1.shape)
+        #print("dec1shape:", dec1.shape)
+        #print("enc1shape:", enc1.shape)
         out = self.decoder2(dec1, enc1)
         logits = self.out(out)
-        print("logits:", logits.shape)
+        #print("logits:", logits.shape)
         return logits

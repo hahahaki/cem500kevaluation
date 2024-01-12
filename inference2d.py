@@ -16,6 +16,7 @@ import segmentation_models_pytorch as smp
 from copy import deepcopy
 
 from resources.data import SegmentationData, FactorResize
+from scipy.ndimage import zoom
 
 def mean_iou(output, target):
     #make target the same shape as output by unsqueezing
@@ -143,8 +144,10 @@ if __name__ == '__main__':
             print(f'Created directory {save_dir}')
             
     #load the model state file
-    path_to_empiar_download = "/home/codee/scratch/sourcecode/cem-dataset/evaluation/" #fill this in
-    state_path = os.path.join(path_to_empiar_download, "cem500k_mocov2_resnet50_200ep.pth.tar")
+    #path_to_empiar_download = "/home/codee/scratch/sourcecode/cem-dataset/evaluation/savemodel" #fill this in
+    #path_to_empiar_download = "/home/codee/scratch/sourcecode/cem-dataset/evaluation/saveraninitmodel"
+    path_to_empiar_download = "/home/codee/scratch/sourcecode/cem-dataset/evaluation/resources"
+    state_path = os.path.join(path_to_empiar_download, "guay-evaluation_ft_all_epoch100_of_100.pth")
     state = torch.load(state_path, map_location='cpu')
     #print(list(state.keys()))
     #assuming we used logging during training, get the
@@ -170,9 +173,9 @@ if __name__ == '__main__':
     print(list(state['state_dict'].values())[-1])
     # the output layer shape is [num_classes, num_features]
     #-1 is the last layer
-    #num_classes = list(state['state_dict'].values())[-1].size(0) #same as output channels
-    num_classes = 1
-    
+    num_classes = list(state['state_dict'].values())[-1].size(0) #same as output channels
+    #num_classes = 7
+    print("numclass:", num_classes)
     #determine all of the eval_classes
     #always ignoring 0 (background)
     if eval_classes is None:
@@ -192,20 +195,22 @@ if __name__ == '__main__':
 
     #create the dataset and dataloader
     test_data = SegmentationData(test_dir, tfs=eval_tfs, gray_channels=gray_channels)
-    test = DataLoader(test_data, batch_size=1, shuffle=False, pin_memory=True, num_workers=8)
+    test = DataLoader(test_data, batch_size=1, shuffle=False, pin_memory=True, num_workers=4)
 
     #need to change here
     unet_state_dict = deepcopy(deepcopy(state['state_dict']))
+    #print("keys:", unet_state_dict.keys())
+    '''
     for k in list(unet_state_dict.keys()):
         unet_state_dict['encoder.' + k] = unet_state_dict[k]
         del unet_state_dict[k]
-        
+    '''
     #determine if we're in inference only mode or not
     inference_only = False if test_data.has_masks else True
     
     #create the UNet. at least for now we're only supporting ResNet50
     model = smp.Unet('resnet50', in_channels=gray_channels, encoder_weights=None, classes=num_classes)
-    model.load_state_dict(unet_state_dict, strict=False)
+    model.load_state_dict(state['state_dict'], strict=True)
     #again, we're assuming that there's access to a GPU
     model = model.cuda()
     
@@ -216,11 +221,14 @@ if __name__ == '__main__':
     image_ious = []
     for data in test:
         #load image to gpu
-        #image = data['image'].cuda(non_blocking=True) #(1, 1, H', W')
-        image = data['image']
-        print("imagesize:", image.size())  
+        image = data['image'].cuda(non_blocking=True) #(1, 1, H', W')
+        mask = data['mask'].cuda(non_blocking=True)
+        #image = data['image']
+        #print("imagesize:", image.size())  
+        #print("masksize:", mask.size()) 
         #filename and original image shape before resizing
         fname = data['fname'][0]
+        # the shape before the resize (transform)
         shape = data['shape']
         
         #run inference
@@ -235,17 +243,31 @@ if __name__ == '__main__':
             else:
                 #for multiclass we apply softmax and take the class with
                 #the highest probability
+                #print("else")
                 prediction = nn.Softmax(dim=1)(prediction) #(1, C, H, W)
                 prediction = torch.argmax(prediction, dim=1) #(1, H, W)
                 prediction = prediction.squeeze().cpu().numpy() #(H, W)
         
+        #print(prediction.shape)
+        #print(type(prediction))
         #resize the prediction to original shape
         #order=0 means nearest neighbor interpolation
-        prediction = resize(prediction, shape, preserve_range=True, order=0).astype(np.uint8)
+        #prediction = resize(prediction, shape, preserve_range=True, order=0).astype(np.uint8)
+        
+        # Cheng modeifed here
+        # Calculate zoom factors for each dimension
+        #zoom_factors = (shape[0] / prediction.shape[0], shape[1] / prediction.shape[1])
+        zoom_factors = (float(shape[0]) / prediction.shape[0], float(shape[1]) / prediction.shape[1])
+        # Apply zoom
+        prediction = zoom(prediction, zoom_factors, order=0)
+
+        # If you need to convert it back to a PyTorch tensor
+        #prediction_resized = torch.tensor(prediction_resized_np).type(torch.uint8)
         
         #save the prediction with the correct filename
         if save_dir is not None:
-            cv2.imwrite(os.path.join(save_dir, fname), prediction)
+            newf = fname.rsplit('.', 1)[0] + ".png"
+            cv2.imwrite(os.path.join(save_dir, newf), prediction)
         
         if not inference_only:
             #the mask can stay on cpu, if there is one
@@ -259,7 +281,7 @@ if __name__ == '__main__':
                 #corresponding to the current label
                 label_mask = mask == label
                 label_pred = prediction == label
-
+                '''
                 #there's 1 hiccup to consider that occurs
                 #when not all of the instances of an object
                 #are labeled in a 2d image. this is the case for all
@@ -296,11 +318,12 @@ if __name__ == '__main__':
                     #alright, now finally, we can compare the label_mask and the instance_matched_prediction
                     intersect = np.logical_and(instance_matched_prediction, label_mask).sum()
                     union = np.logical_or(instance_matched_prediction, label_mask).sum()
-                else:
+                '''
+                #else:
                     #this is the case that we hope to find ourselves in.
                     #evaluation is much easier here
-                    intersect = np.logical_and(label_pred, label_mask).sum()
-                    union = np.logical_or(label_pred, label_mask).sum()
+                intersect = np.logical_and(label_pred, label_mask).sum()
+                union = np.logical_or(label_pred, label_mask).sum()
                 
                 class_ious.append((intersect + 1e-5) / (union + 1e-5))
 

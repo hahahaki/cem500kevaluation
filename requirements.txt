@@ -1,0 +1,15 @@
+torch
+monai
+nibabel
+tqdm
+einops
+argparse
+timm
+PyYAML==6.0.1
+torchvision
+h5py
+simpleitk
+scikit-learn
+imagehash
+albumentations
+matplotlib==3.7.2

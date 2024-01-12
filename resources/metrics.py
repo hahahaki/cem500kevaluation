@@ -132,7 +132,7 @@ class ComposeMetrics:
         names = []
         values = []
         print("items:", self.metrics_dict.items())
-        for name, metric in self.metrics_dict.items():
+        for name, metric in self.metrics_dict.items(): # is IoU and IoU metric object inside
             avg_values = metric.average()
             if isinstance(avg_values, torch.Tensor):
                 avg_values = avg_values.cpu()
@@ -145,7 +145,9 @@ class ComposeMetrics:
             #print("class_name", self.class_names)
             #print("avg", avg_values)
             for class_name, val in zip(self.class_names, avg_values):
-                names.append(f'{class_name}_{name}')
+                #print("name&value:", class_name)
+                #print(val)
+                names.append(f'{class_name}_{name}') # name is IoU
                 values.append(val.item())
                 
             if self.reset_on_print:

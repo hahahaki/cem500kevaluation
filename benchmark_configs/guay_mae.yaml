@@ -89,7 +89,7 @@ metrics:
 #number of times to print/record metrics for 
 #train and validation data over the entire
 #training run
-num_prints: 10
+num_prints: 1000
 
 #list the augmentations to use during training
 augmentations:

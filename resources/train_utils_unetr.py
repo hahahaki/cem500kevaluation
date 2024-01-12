@@ -1,5 +1,5 @@
-import sys, os, yaml
-import mlflow
+import sys, os
+#import mlflow
 import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
@@ -8,7 +8,7 @@ from torch.optim.lr_scheduler import OneCycleLR, MultiStepLR, LambdaLR
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from monai.losses import DiceCELoss
-
+from monai.inferers import sliding_window_inference
 from resources.metrics import ComposeMetrics, IoU, EMAMeter, AverageMeter
 
 metric_lookup = {'IoU': IoU}
@@ -111,8 +111,8 @@ class Trainer:
         #this gives a better reflection of how well the model is performing
         #when the metrics are printed
         trn_md = {name: metric_lookup[name](EMAMeter()) for name in config['metrics']}
-        #print("trn_md:", trn_md)
         self.trn_metrics = ComposeMetrics(trn_md, class_names)
+        #print("classname:", class_names)
         self.trn_loss_meter = EMAMeter()
         
         #the only difference between train and validation metrics
@@ -130,6 +130,7 @@ class Trainer:
         #the mlflow run (if there is one and we're using logging)
         if config['resume']:
             self.resume(config['resume'])
+        '''
         elif self.logging:
             #if we're not resuming, but are logging, then we
             #need to setup mlflow with a new experiment
@@ -160,7 +161,7 @@ class Trainer:
             mlflow.log_param('encoder', config['encoder'])
             mlflow.log_param('finetune_layer', config['finetune_layer'])
             mlflow.log_param('pretraining', config['pretraining'])
-                
+        '''
     def resume(self, checkpoint_fpath):
         """
         Sets model parameters, scheduler and optimizer states to the
@@ -173,8 +174,8 @@ class Trainer:
             self.scheduler.load_state_dict(checkpoint['scheduler'])
             self.optimizer.load_state_dict(checkpoint['optimizer'])
         
-        if self.logging and 'run_id' in checkpoint:
-            mlflow.start_run(run_id=checkpoint['run_id'])
+       #if self.logging and 'run_id' in checkpoint:
+        #    mlflow.start_run(run_id=checkpoint['run_id'])
         
         print(f'Loaded state from {checkpoint_fpath}')
         print(f'Resuming from epoch {self.scheduler.last_epoch}...')
@@ -190,7 +191,7 @@ class Trainer:
             metric_dict = self.val_metrics.metrics_dict
             
         #log the last loss, using the dataset name as a prefix
-        mlflow.log_metric(dataset + '_loss', losses.avg, step=step)
+        #mlflow.log_metric(dataset + '_loss', losses.avg, step=step)
         
         #log all the metrics in our dict, using dataset as a prefix
         metrics = {}
@@ -199,7 +200,7 @@ class Trainer:
             for class_name, val in zip(self.trn_metrics.class_names, values):
                 metrics[dataset + '_' + class_name + '_' + k] = float(val.item())
                 
-        mlflow.log_metrics(metrics, step=step)
+        #mlflow.log_metrics(metrics, step=step)
     
     def train(self):
         """
@@ -231,8 +232,11 @@ class Trainer:
             total_epochs = self.config['epochs']
             iters_per_epoch = len(self.trn_data)
             outer_loop = range(last_epoch, total_epochs + 1)
-            inner_loop = tqdm(range(iters_per_epoch), file=sys.stdout)
+            inner_loop = tqdm(range(iters_per_epoch), file=sys.stdout) # tqdm will show progress line
 
+        #print("inner:", inner_loop)
+        #print("outer:", outer_loop)
+        #print("total_epoch:", total_epochs)
         #determine the epochs at which to print results
         eval_epochs = total_epochs // self.config['num_prints']
         save_epochs = total_epochs // self.config['num_save_checkpoints']
@@ -242,18 +246,24 @@ class Trainer:
         #https://discuss.pytorch.org/t/what-does-torch-backends-cudnn-benchmark-do/5936
         cudnn.benchmark = True
         
-        # I add here.
+        # Cheng add here.
         dice_loss = DiceCELoss(
             to_onehot_y=True, softmax=True, squared_pred=True, smooth_nr=1e-6, smooth_dr=0.0
         )
         #perform training over the outer and inner loops
         for epoch in outer_loop:
             for iteration in inner_loop:
+                #print("epoch:", epoch)
                 #load the next batch of training data
                 images, masks = self.trn_data.load()
-                print("show", images.shape)
+                #print("show", images.shape)               
+                #print("iteration:", iteration)
                 #run the training iteration
                 loss, output = self._train_1_iteration(images, masks, dice_loss)
+                # the output shape should be [16, 7, 224, 224]
+                # maskshape: [16, 224, 224]
+                #print("output:", output.shape)
+                #print("maskshape:", masks.shape)
                 # cheng hid all the trn_metrics operation (IoU) calculate
                 #record the loss and evaluate metrics
                 self.trn_loss_meter.update(loss)
@@ -278,14 +288,14 @@ class Trainer:
                 self.trn_metrics.print()
                 
                 # Cheng added
-                self.val_data = None
+                #self.val_data = None
                 #run evaluation if we have validation data
                 if self.val_data is not None:
                     #before evaluation we want to turn off cudnn
                     #benchmark because the input sizes of validation
                     #images are not necessarily constant
                     cudnn.benchmark = False
-                    self.evaluate()
+                    self.evaluate(dice_loss)
                     
                     if self.logging:
                         self.log_metrics(epoch, dataset='valid')
@@ -351,7 +361,7 @@ class Trainer:
         #return the loss value and the output
         return loss.item(), output.detach()
 
-    def evaluate(self):
+    def evaluate(self, loss_func):
         """
         Evaluation method used at the end of each epoch. Not intended to
         generate predictions for validation dataset, it only returns average loss
@@ -363,12 +373,16 @@ class Trainer:
         self.model.eval()
         
         val_iter = DataFetcher(self.val_data)
-        for _ in range(len(val_iter)):
+        for _ in range(len(val_iter)): # the number of test images (23 in guay)
             with torch.no_grad():
                 #load batch of data
                 images, masks = val_iter.load()
-                output = self.model.eval()(images)
-                loss = self.criterion(output, masks)
+                output = sliding_window_inference(images, (224, 224), 4, self.model, overlap=0.2) # how many times takes to predict the whole image
+                #output = self.model.eval()(images)
+                #print(images.shape): [1, 1, 800,800]
+                #print(masks.shape): [1, 1, 800, 800]
+                #print("outputdim:", output.shape)
+                loss = loss_func(output, masks)
                 self.val_loss_meter.update(loss.item())
                 self.val_metrics.evaluate(output.detach(), masks)
                 
@@ -397,8 +411,8 @@ class Trainer:
                  'optimizer': self.optimizer.state_dict(), 
                  'norms': self.config['norms']} 
         
-        if self.logging:
-            state['run_id'] = mlflow.active_run().info.run_id
+        #if self.logging:
+        #    state['run_id'] = mlflow.active_run().info.run_id
             
         #the last step is to create the name of the file to save
         #the format is: name-of-experiment_pretraining_epoch.pth
