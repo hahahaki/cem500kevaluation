@@ -72,8 +72,8 @@ if __name__ == "__main__":
         config['pretraining'] = args['pf']
     #if args['n'] is not None:
     #    config['iters'] = args['n']
-    if args['ft'] is not None:
-        config['finetune_layer'] = args['ft']
+    #if args['ft'] is not None:
+    #    config['finetune_layer'] = args['ft']
 
     experiment = config['experiment_name']
     print("model_direct:", config['model_dir'])
@@ -83,8 +83,8 @@ if __name__ == "__main__":
     #if we're working with MoCo pretrained weights
     #then we'll have to download them separately from the 
     #built-in pytorch function
-    #pretraining = 'random_init' # for random init
-    pretraining = 'cellemnet_mocov2' # for mocov2 pretrain
+    pretraining = 'random_init' # for random init
+    #pretraining = 'cellemnet_mocov2' # for mocov2 pretrain
     if pretraining in ['imagenet_mocov2', 'cellemnet_mocov2']:
         #this loads the state dict and adds the prefix "encoder."
         #to the keys such that they match those in the UNet model
@@ -141,13 +141,13 @@ if __name__ == "__main__":
 
     #unfreeze layers based on the finetune_layer argument
     finetune_layer = config['finetune_layer']
+    print("configfinetunelayer:", finetune_layer)
     encoder_groups = [mod[1] for mod in model.encoder.named_children()]
     if finetune_layer != 'none':
         #this indices should work for any ResNet model, but were specifically
         #chosen for ResNet50
         layer_index = {'all': 0, 'layer1': 4, 'layer2': 5, 'layer3': 6, 'layer4': 7}
         start_layer = layer_index[finetune_layer]
-
         #always finetune from the start layer to the last layer in the resnet
         for group in encoder_groups[start_layer:]:
             for param in group.parameters():

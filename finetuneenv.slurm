@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --job-name=finetunemocounet
+#SBATCH --job-name=randomfreezeencoder
 #SBATCH --gpus-per-node=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=6
@@ -25,7 +25,7 @@ log_dir="/home/codee/scratch/sourcecode/cem-dataset/evaluation/finetunesave"
 echo log_dir : `pwd`/$log_dir
 mkdir -p `pwd`/$log_dir
 
-srun python /home/codee/scratch/sourcecode/cem-dataset/evaluation/finetune.py > $log_dir/mocofinetune1.11
+srun python /home/codee/scratch/sourcecode/cem-dataset/evaluation/finetune.py > $log_dir/randominitfreezeencode1.14
 
 #python /home/codee/scratch/sourcecode/cem-dataset/evaluation/setup_benchmarks/setup_data.py "/home/codee/scratch/sourcecode/cem-dataset/benchdata"
 

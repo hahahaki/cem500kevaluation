@@ -35,10 +35,10 @@ class DataFetcher:
             batch = next(self.loader_iter)
             
         #get the images and masks as cuda float tensors
-        #images = batch['image'].float().cuda(non_blocking=True)
+        images = batch['image'].float().cuda(non_blocking=True)
         #masks = batch['mask'].cuda(non_blocking=True)
-        images = batch['image'].float()
-        masks = batch['mask'].unsqueeze(1)
+        #images = batch['image'].float()
+        masks = batch['mask'].cuda(non_blocking=True)
         return images, masks
         
 class Trainer:
@@ -62,8 +62,8 @@ class Trainer:
     
     def __init__(self, config, model, trn_data, val_data=None):
         self.config = config
-        #self.model = model.cuda()
-        self.model = model
+        self.model = model.cuda()
+        #self.model = model
         self.trn_data = DataFetcher(trn_data)
         self.val_data = val_data
         
@@ -93,13 +93,13 @@ class Trainer:
         if config['num_classes'] > 1:
             #load class weights if they were given in the config file
             if 'class_weights' in config:
-                #weight = torch.Tensor(config['class_weights']).float().cuda()
-                weight = torch.Tensor(config['class_weights']).float()   
+                weight = torch.Tensor(config['class_weights']).float().cuda()
+                #weight = torch.Tensor(config['class_weights']).float()   
             else:
                 weight = None
             
-            #self.criterion = nn.CrossEntropyLoss(weight=weight).cuda()
-            self.criterion = nn.CrossEntropyLoss(weight=weight)
+            self.criterion = nn.CrossEntropyLoss(weight=weight).cuda()
+            #self.criterion = nn.CrossEntropyLoss(weight=weight)
         else:
             self.criterion = nn.BCEWithLogitsLoss().cuda()
         
@@ -352,6 +352,9 @@ class Trainer:
         '''
 
         #loss = self.criterion(output, masks)
+        # cheng modifed the mask dismention to fit the unetr loss function
+        masks = masks.unsqueeze(1)
+        #print(masks.shape)
         loss = loss_func(output, masks)
         #backward pass
         loss.backward()
@@ -381,6 +384,8 @@ class Trainer:
                 #output = self.model.eval()(images)
                 #print(images.shape): [1, 1, 800,800]
                 #print(masks.shape): [1, 1, 800, 800]
+                # cheng add this to match dimentsion for loss_function
+                masks = masks.unsqueeze(1)
                 #print("outputdim:", output.shape)
                 loss = loss_func(output, masks)
                 self.val_loss_meter.update(loss.item())

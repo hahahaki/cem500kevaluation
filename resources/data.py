@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 from albumentations import ImageOnlyTransform
 from albumentations.augmentations import functional as AF
 from albumentations import Resize
-
+import numpy as np
 
 class SegmentationData(Dataset):
     """

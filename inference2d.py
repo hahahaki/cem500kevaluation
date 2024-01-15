@@ -325,9 +325,9 @@ if __name__ == '__main__':
                 intersect = np.logical_and(label_pred, label_mask).sum()
                 union = np.logical_or(label_pred, label_mask).sum()
                 
-                class_ious.append((intersect + 1e-5) / (union + 1e-5))
+                class_ious.append((intersect + 1e-5) / (union + 1e-5)) # iou for each class (label) of the current image
 
-            image_ious.append(class_ious)
+            image_ious.append(class_ious) # every value in image_ious is a list with iou of each class
 
     #report the mean IoU
     if not inference_only:

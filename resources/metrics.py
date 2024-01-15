@@ -155,3 +155,6 @@ class ComposeMetrics:
         
         for name, value in zip(names, values):
             print(f'{name}: {value:.3f}')
+        
+        mean_iou = np.array(values).mean()
+        print(f'Mean IoU: {mean_iou}')

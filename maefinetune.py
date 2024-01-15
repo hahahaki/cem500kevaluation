@@ -1,4 +1,4 @@
-import os, sys, argparse, mlflow, yaml
+import os, argparse, yaml
 import numpy as np
 import torch
 import torch.nn as nn
@@ -86,7 +86,7 @@ if __name__ == "__main__":
         img_size=(224, 224),
         feature_size=64,
         hidden_size=192,
-        mlp_dim=3072,
+        mlp_dim=384,
         num_heads=12,
         pos_embed='perceptron',
         norm_name='instance',
@@ -94,9 +94,10 @@ if __name__ == "__main__":
         res_block=True,
         dropout_rate=0.0)
     gray_channels = 1
+    
     '''
     # to load the pretraining into the UNETR
-    pretraining = '/home/codee/scratch/servercheckpoint/pretrain500k12_18.pt'
+    pretraining = '/home/codee/scratch/servercheckpoint/pretrain500k1_8.pt'
     
     #for key, value in checkpoint.items():
     #    print(key, value.shape)
@@ -113,20 +114,20 @@ if __name__ == "__main__":
         del state_dict[k]
         
     for key, value in state_dict.items():
-        print(key, value.shape)
+        print(key)
     #create the Unet model and load the pretrained weights
     msg = model.load_state_dict(state_dict, strict=False)
     print(f'Successfully loaded parameters from {pretraining}')
     
     
-    #freeze all encoder layers to start and only open
+    #freeze all encoder (can be encoder1-N?) layers to start and only open
     #them when specified
     for param in model.encoder.parameters():
         param.requires_grad = False
 
     #unfreeze layers based on the finetune_layer argument
-    finetune_layer = config['finetune_layer']
-    encoder_groups = [mod[1] for mod in model.encoder.named_children()]
+    finetune_layer = config['finetune_layer'] # now is none
+    #encoder_groups = [mod[1] for mod in model.encoder.named_children()]
     if finetune_layer != 'none':
         #this indices should work for any ResNet model, but were specifically
         #chosen for ResNet50
@@ -143,7 +144,7 @@ if __name__ == "__main__":
     #magnitudes of weights that typically occur with unsupervised
     #pretraining. we haven't found this to be beneficial for the
     #OneCycle LR policy, it might be for other lr policies though.
-    if config['unfreeze_encoder_bn']:
+    if config['unfreeze_encoder_bn']: # now is false
         def unfreeze_encoder_bn(module):
             if isinstance(module, torch.nn.modules.batchnorm._BatchNorm):
                 for param in module.parameters():
